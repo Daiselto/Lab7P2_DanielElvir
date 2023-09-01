@@ -1,0 +1,14 @@
+[
+	Mario, 
+	25, 
+	Fontanero, 
+	3, 
+	500000.0, 
+];
+[
+	Luigi, 
+	25, 
+	Doctor Luigi, 
+	2, 
+	300000.0, 
+];
