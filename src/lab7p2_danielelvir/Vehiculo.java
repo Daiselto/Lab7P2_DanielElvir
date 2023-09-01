@@ -20,7 +20,6 @@ public class Vehiculo {
     public Vehiculo() {
     }
 
-    
     public Vehiculo(String Marca, Color color, String Modelo, int Año, double Precio_Venta) {
         this.Marca = Marca;
         this.color = color;
@@ -28,6 +27,9 @@ public class Vehiculo {
         this.Año = Año;
         this.Precio_Venta = Precio_Venta;
     }
+
+    
+    
 
     public String getMarca() {
         return Marca;
