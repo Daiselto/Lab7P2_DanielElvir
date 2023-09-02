@@ -4,7 +4,6 @@
  */
 package lab7p2_danielelvir;
 
-import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,10 +13,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -46,10 +42,6 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        VentasDia = new javax.swing.JDialog();
-        bg = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
         ArbolListar = new javax.swing.JDialog();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -106,36 +98,6 @@ public class Main extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         ArbolDia = new javax.swing.JTree();
         jButton1 = new javax.swing.JButton();
-
-        jScrollPane2.setViewportView(jTree1);
-
-        javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
-        bg.setLayout(bgLayout);
-        bgLayout.setHorizontalGroup(
-            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bgLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(468, Short.MAX_VALUE))
-        );
-        bgLayout.setVerticalGroup(
-            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bgLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(76, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout VentasDiaLayout = new javax.swing.GroupLayout(VentasDia.getContentPane());
-        VentasDia.getContentPane().setLayout(VentasDiaLayout);
-        VentasDiaLayout.setHorizontalGroup(
-            VentasDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        VentasDiaLayout.setVerticalGroup(
-            VentasDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 102));
 
@@ -740,6 +702,7 @@ public class Main extends javax.swing.JFrame {
         cb_Vendedores.setSelectedIndex(0);
         cb_Vehiculos.setSelectedIndex(0);
         cb_Clientes.setSelectedIndex(0);
+        tf_CostoTransaccion.setText("");
     }//GEN-LAST:event_AgregarVentaActionPerformed
 
     private void VentasDelDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VentasDelDiaActionPerformed
@@ -823,6 +786,7 @@ public class Main extends javax.swing.JFrame {
 
     private void VerArboldeTODOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerArboldeTODOActionPerformed
         ArbolListar.pack();
+        ArbolListar.setAlwaysOnTop(true);
         ArbolListar.setModal(true);
         ArbolListar.setLocationRelativeTo(this);
         ArbolListar.setVisible(true);
@@ -832,10 +796,57 @@ public class Main extends javax.swing.JFrame {
         DefaultTreeModel m = (DefaultTreeModel) PrimerArbol.getModel();
         DefaultMutableTreeNode raiz
                 = (DefaultMutableTreeNode) m.getRoot();
-
+        File file = new File("./Cliente.txt");
+        DefaultMutableTreeNode cliente = new DefaultMutableTreeNode(file);
+        File file1 = new File("./Vendedor.txt");
+        DefaultMutableTreeNode vendedor = new DefaultMutableTreeNode(file1);
+        File file2 = new File("./Vehiculo.txt");
+        DefaultMutableTreeNode vehiculo = new DefaultMutableTreeNode(file2);
+        File file3 = new File("./Venta.txt");
+        DefaultMutableTreeNode venta = new DefaultMutableTreeNode(file3);
+        
+        vehiculoscb = new ArrayList();
         try {
-            File file = new File("./Cliente.txt");
-            FileReader fr = new FileReader(file);
+            File file4 = new File("./Vehiculo.txt");
+            FileReader fr = new FileReader(file4);
+            BufferedReader br = new BufferedReader(fr);
+
+            String linea = "";
+            String entrada = "";
+            ArrayList<String> datos = new ArrayList();
+            while ((linea = br.readLine()) != null) {
+
+                if (!linea.contains("];")) {
+                    entrada += linea;
+                } else {
+                    datos.add(entrada);
+                    entrada = "";
+                }
+            }
+            for (String dato : datos) {
+                String data[] = dato.split(",");
+                data[0] = data[0].substring(2, data[0].length());
+                data[1] = data[1].substring(2, data[1].length());
+                data[2] = data[2].substring(2, data[2].length());
+                data[3] = data[3].substring(2, data[3].length());
+                int año = Integer.parseInt(data[3]);
+                data[4] = data[4].substring(2, data[4].length());
+                double precio = Double.parseDouble(data[4]);
+                Vehiculo v = new Vehiculo(data[0], data[1], data[2], año, precio);
+                vehiculo1=new DefaultMutableTreeNode(v);
+
+            }
+
+            
+            fr.close();
+            br.close();
+        } catch (Exception e) {
+        }
+        
+        clientescb = new ArrayList();
+        try {
+            File file5 = new File("./Cliente.txt");
+            FileReader fr = new FileReader(file5);
             BufferedReader br = new BufferedReader(fr);
 
             String linea = "";
@@ -861,29 +872,34 @@ public class Main extends javax.swing.JFrame {
                 data[4] = data[4].substring(2, data[4].length());
                 double Sueldo = Double.parseDouble(data[4]);
                 Cliente c = new Cliente(data[0], edad, data[2], CantidadCarros, Sueldo);
-                cliente = new DefaultMutableTreeNode(c);
+                cliente1=new DefaultMutableTreeNode(c);
             }
 
+            
             fr.close();
             br.close();
+        } catch (Exception e) {
+        }
+        
+        vendedorcb = new ArrayList();
+        try {
+            File file6 = new File("./Vendedor.txt");
+            FileReader fr = new FileReader(file6);
+            BufferedReader br = new BufferedReader(fr);
 
-            File file1 = new File("./Vendedor.txt");
-            FileReader fr1 = new FileReader(file1);
-            BufferedReader br1 = new BufferedReader(fr1);
+            String linea = "";
+            String entrada = "";
+            ArrayList<String> datos = new ArrayList();
+            while ((linea = br.readLine()) != null) {
 
-            String linea1 = "";
-            String entrada1 = "";
-            ArrayList<String> datos1 = new ArrayList();
-            while ((linea1 = br1.readLine()) != null) {
-
-                if (!linea1.contains("];")) {
-                    entrada1 += linea1;
+                if (!linea.contains("];")) {
+                    entrada += linea;
                 } else {
-                    datos1.add(entrada1);
-                    entrada1 = "";
+                    datos.add(entrada);
+                    entrada = "";
                 }
             }
-            for (String dato : datos1) {
+            for (String dato : datos) {
                 String data[] = dato.split(",");
                 data[0] = data[0].substring(2, data[0].length());
                 data[1] = data[1].substring(2, data[1].length());
@@ -892,80 +908,26 @@ public class Main extends javax.swing.JFrame {
                 double precio = Double.parseDouble(data[2]);
 
                 Vendedor v = new Vendedor(data[0], carros, precio);
-                vendedor = new DefaultMutableTreeNode(v);
-
-            }
-            fr1.close();
-            br1.close();
-
-            File file2 = new File("./Vehiculo.txt");
-            FileReader fr2 = new FileReader(file2);
-            BufferedReader br2 = new BufferedReader(fr2);
-
-            String linea2 = "";
-            String entrada2 = "";
-            ArrayList<String> datos2 = new ArrayList();
-            while ((linea = br2.readLine()) != null) {
-
-                if (!linea2.contains("];")) {
-                    entrada2 += linea2;
-                } else {
-                    datos2.add(entrada2);
-                    entrada2 = "";
-                }
-            }
-            for (String dato : datos2) {
-                String data[] = dato.split(",");
-                data[0] = data[0].substring(2, data[0].length());
-                data[1] = data[1].substring(2, data[1].length());
-                data[2] = data[2].substring(2, data[2].length());
-                data[3] = data[3].substring(2, data[3].length());
-                int año = Integer.parseInt(data[3]);
-                data[4] = data[4].substring(2, data[4].length());
-                double precio = Double.parseDouble(data[4]);
-                Vehiculo v = new Vehiculo(data[0], data[1], data[2], año, precio);
-                vehiculo = new DefaultMutableTreeNode(v);
+                vendedor1 = new DefaultMutableTreeNode(v);
 
             }
 
-            fr2.close();
-            br2.close();
-
-            /*File file3 = new File("./Venta.txt");
-            FileReader fr3 = new FileReader(file3);
-            BufferedReader br3 = new BufferedReader(fr3);
-
-            String linea3 = "";
-            String entrada3 = "";
-            ArrayList<String> datos3 = new ArrayList();
-            while ((linea = br3.readLine()) != null) {
-
-                if (!linea3.contains("];")) {
-                    entrada3 += linea3;
-                } else {
-                    datos3.add(entrada3);
-                    entrada3 = "";
-                }
-            }
-            for (String dato : datos3) {
-                String data[] = dato.split(",");
-                data[0] = data[0].substring(2, data[0].length());   
-                Vendedor ven = (Vendedor)data[0];
-                data[1] = data[1].substring(2, data[1].length());                
-                data[2] = data[2].substring(2, data[2].length());
-                double costo = Double.parseDouble(data[2]);
-                data[3] = data[3].substring(2, data[3].length());                                
-                Venta v = new Venta(vendedor, cliente, costo, vehiculo);
-                DefaultMutableTreeNode venta = new DefaultMutableTreeNode(v);
-            }
             
-            fr3.close();
-            br3.close();*/
+            fr.close();
+            br.close();
         } catch (Exception e) {
         }
-        raiz.add(cliente);
-        raiz.add(vendedor);
+        
+        raiz.add(venta);        
+        vehiculo.add(vehiculo1);
         raiz.add(vehiculo);
+        vendedor.add(vendedor1);
+        raiz.add(vendedor);
+        cliente.add(cliente1);
+        raiz.add(cliente);
+        
+        m.reload();
+        
 
     }//GEN-LAST:event_VerArbolActionPerformed
 
@@ -1213,10 +1175,10 @@ public class Main extends javax.swing.JFrame {
     ArrayList<String> vehiculoscb = new ArrayList();
     ArrayList<String> vendedorcb = new ArrayList();
     ArrayList<String> clientescb = new ArrayList();
-    DefaultMutableTreeNode vehiculo;
-    DefaultMutableTreeNode cliente;
-    DefaultMutableTreeNode vendedor;
-    DefaultMutableTreeNode venta;
+    DefaultMutableTreeNode vehiculo1;
+    DefaultMutableTreeNode cliente1;
+    DefaultMutableTreeNode vendedor1;
+    DefaultMutableTreeNode venta1;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AgregarCliente;
     private javax.swing.JButton AgregarVehiculo;
@@ -1233,10 +1195,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTree PrimerArbol;
     private javax.swing.JTabbedPane TabsPrincipales;
     private javax.swing.JButton VentasDelDia;
-    private javax.swing.JDialog VentasDia;
     private javax.swing.JButton VerArbol;
     private javax.swing.JButton VerArboldeTODO;
-    private javax.swing.JPanel bg;
     private javax.swing.JComboBox<String> cb_Clientes;
     private javax.swing.JComboBox<String> cb_Vehiculos;
     private javax.swing.JComboBox<String> cb_Vendedores;
@@ -1260,10 +1220,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTree jTree1;
     private javax.swing.JSpinner tf_Año;
     private javax.swing.JSpinner tf_CantidadCarros;
     private javax.swing.JTextField tf_CantidadDinero;
