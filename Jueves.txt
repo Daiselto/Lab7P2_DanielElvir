@@ -1,0 +1,21 @@
+[
+	1, 
+	Fernando, 
+	Nuila, 
+	60000.0, 
+	Ford, Corolla, 
+];
+[
+	2, 
+	Fernando, 
+	Daniel, 
+	4654645.0, 
+	Ford, Corolla, 
+];
+[
+	3, 
+	Rodrigo, 
+	Mario, 
+	4654645.0, 
+	Honda, Civic, 
+];

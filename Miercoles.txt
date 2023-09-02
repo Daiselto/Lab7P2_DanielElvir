@@ -1,0 +1,7 @@
+[
+	1, 
+	Rodrigo, 
+	Daniel, 
+	60000.0, 
+	Honda, Civic, 
+];

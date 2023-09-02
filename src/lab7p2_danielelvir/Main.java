@@ -8,6 +8,8 @@ import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,6 +21,8 @@ import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
@@ -47,6 +51,10 @@ public class Main extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
         ArbolListar = new javax.swing.JDialog();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        PrimerArbol = new javax.swing.JTree();
+        VerArbol = new javax.swing.JButton();
         TabsPrincipales = new javax.swing.JTabbedPane();
         CrearVehiculo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -91,9 +99,13 @@ public class Main extends javax.swing.JFrame {
         tf_CostoTransaccion = new javax.swing.JTextField();
         AgregarVenta = new javax.swing.JButton();
         VentasDelDia = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        Modificar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txt_Modificar = new javax.swing.JTextArea();
+        VerArboldeTODO = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTree2 = new javax.swing.JTree();
+        jButton1 = new javax.swing.JButton();
 
         jScrollPane2.setViewportView(jTree1);
 
@@ -125,15 +137,54 @@ public class Main extends javax.swing.JFrame {
             .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jPanel1.setBackground(new java.awt.Color(0, 102, 102));
+
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Admin");
+        PrimerArbol.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane3.setViewportView(PrimerArbol);
+
+        VerArbol.setBackground(new java.awt.Color(102, 0, 102));
+        VerArbol.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        VerArbol.setForeground(new java.awt.Color(0, 0, 0));
+        VerArbol.setText("VER ARBOL");
+        VerArbol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VerArbolActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(268, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(VerArbol, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(101, 101, 101))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(VerArbol, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(51, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout ArbolListarLayout = new javax.swing.GroupLayout(ArbolListar.getContentPane());
         ArbolListar.getContentPane().setLayout(ArbolListarLayout);
         ArbolListarLayout.setHorizontalGroup(
             ArbolListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 696, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         ArbolListarLayout.setVerticalGroup(
             ArbolListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 537, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -195,7 +246,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(tf_Color, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CrearVehiculoLayout.createSequentialGroup()
-                .addContainerGap(559, Short.MAX_VALUE)
+                .addContainerGap(1130, Short.MAX_VALUE)
                 .addComponent(AgregarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(100, 100, 100))
         );
@@ -267,7 +318,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(tf_CantidadDinero, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CrearVendedorLayout.createSequentialGroup()
-                .addContainerGap(491, Short.MAX_VALUE)
+                .addContainerGap(1062, Short.MAX_VALUE)
                 .addComponent(AgregarVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(66, 66, 66))
         );
@@ -337,7 +388,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(tf_CarrosComprados, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CrearClienteLayout.createSequentialGroup()
-                .addContainerGap(507, Short.MAX_VALUE)
+                .addContainerGap(1078, Short.MAX_VALUE)
                 .addComponent(AgregarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(120, 120, 120))
         );
@@ -402,15 +453,44 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        Modificar.setBackground(new java.awt.Color(102, 0, 102));
+        Modificar.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        Modificar.setForeground(new java.awt.Color(0, 0, 0));
+        Modificar.setText("GUARDAR ARCHIVO MODIFICADO");
+        Modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ModificarActionPerformed(evt);
+            }
+        });
+
+        txt_Modificar.setBackground(new java.awt.Color(153, 153, 153));
+        txt_Modificar.setColumns(20);
+        txt_Modificar.setRows(5);
+        jScrollPane1.setViewportView(txt_Modificar);
+
+        VerArboldeTODO.setBackground(new java.awt.Color(102, 0, 102));
+        VerArboldeTODO.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        VerArboldeTODO.setForeground(new java.awt.Color(0, 0, 0));
+        VerArboldeTODO.setText("VER TODOS LOS ELEMENTOS");
+        VerArboldeTODO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VerArboldeTODOActionPerformed(evt);
+            }
+        });
+
+        treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
+        jTree2.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane4.setViewportView(jTree2);
+
         jButton1.setBackground(new java.awt.Color(102, 0, 102));
         jButton1.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("MODIFICAR");
-
-        jTextArea1.setBackground(new java.awt.Color(153, 153, 153));
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jButton1.setText("ABRIR ARCHIVO");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout CrearVentasLayout = new javax.swing.GroupLayout(CrearVentas);
         CrearVentas.setLayout(CrearVentasLayout);
@@ -419,7 +499,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(CrearVentasLayout.createSequentialGroup()
                 .addGroup(CrearVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(CrearVentasLayout.createSequentialGroup()
-                        .addGroup(CrearVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(CrearVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(CrearVentasLayout.createSequentialGroup()
                                 .addGap(25, 25, 25)
                                 .addGroup(CrearVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -435,43 +515,57 @@ public class Main extends javax.swing.JFrame {
                                     .addComponent(tf_CostoTransaccion, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(CrearVentasLayout.createSequentialGroup()
                                 .addGap(33, 33, 33)
-                                .addComponent(AgregarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(VentasDelDia, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(AgregarVenta)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(VentasDelDia)
+                                .addGap(34, 34, 34)
+                                .addComponent(jButton1)))
                         .addGap(27, 27, 27)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(CrearVentasLayout.createSequentialGroup()
+                        .addComponent(Modificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(VerArboldeTODO))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CrearVentasLayout.createSequentialGroup()
                         .addGap(33, 33, 33)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 857, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(37, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 999, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(53, 53, 53)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         CrearVentasLayout.setVerticalGroup(
             CrearVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CrearVentasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(CrearVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel14)
-                    .addComponent(cb_Vendedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addGroup(CrearVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(cb_Clientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
-                .addGroup(CrearVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(tf_CostoTransaccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
-                .addGroup(CrearVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(cb_Vehiculos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(CrearVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(AgregarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(VentasDelDia, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addGroup(CrearVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(CrearVentasLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(CrearVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel14)
+                            .addComponent(cb_Vendedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(38, 38, 38)
+                        .addGroup(CrearVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15)
+                            .addComponent(cb_Clientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(39, 39, 39)
+                        .addGroup(CrearVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel16)
+                            .addComponent(tf_CostoTransaccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40)
+                        .addGroup(CrearVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17)
+                            .addComponent(cb_Vehiculos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(CrearVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(CrearVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(AgregarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(VentasDelDia, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(VerArboldeTODO, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(CrearVentasLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(28, 28, 28))
         );
 
         TabsPrincipales.addTab("Ventas", CrearVentas);
@@ -649,49 +743,59 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_AgregarVentaActionPerformed
 
     private void VentasDelDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VentasDelDiaActionPerformed
-        JFileChooser jfc = new JFileChooser();
-        FileNameExtensionFilter filtro = 
-                    new FileNameExtensionFilter(
-                            "Archivos de Texto", "txt");
-         jfc.setFileFilter(filtro); 
-        int seleccion = jfc.showSaveDialog(this);        
+        JFileChooser jfc = new JFileChooser("./");
+        FileNameExtensionFilter filtro
+                = new FileNameExtensionFilter(
+                        "Archivos de Texto", "txt");
+        jfc.setFileFilter(filtro);
+        int seleccion = jfc.showSaveDialog(this);
         FileWriter fw = null;
         BufferedWriter bw = null;
         if (seleccion == JFileChooser.APPROVE_OPTION) {
-             try {
-                 
-                  File fichero=null;
+            try {
+
+                File fichero = null;
                 if (jfc.getFileFilter().getDescription().equals(
                         "Archivos de Texto")) {
-                    fichero = 
-                        new File(jfc.getSelectedFile().getPath()+".txt");
-                }else{
+                    fichero
+                            = new File(jfc.getSelectedFile().getPath() + ".txt");
+                } else {
                     fichero = jfc.getSelectedFile();
-                }                             
+                }
                 fw = new FileWriter(fichero);
                 bw = new BufferedWriter(fw);
+                int cont = 1;
                 for (Venta t : ventas) {
                     bw.write("[\n"
+                            + "\t" + cont + ", \n"
                             + "\t" + t.getVendedor() + ", \n"
                             + "\t" + t.getCliente() + ", \n"
                             + "\t" + t.getCosto_Transaccion() + ", \n"
                             + "\t" + t.getCarro() + ", \n"
                             + "];\n");
-                }                
+                    cont++;
+                }
                 bw.flush();
-                ventas.removeAll(ventas);
-                JOptionPane.showMessageDialog(this, 
-                        "Ventas hechas");  
+                DefaultTreeModel m = (DefaultTreeModel) PrimerArbol.getModel();
+                DefaultMutableTreeNode raiz
+                        = (DefaultMutableTreeNode) m.getRoot();
                 
+                ventas.removeAll(ventas);
+
+                JOptionPane.showMessageDialog(this,
+                        "Ventas hechas");
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
             try {
-                    bw.close();
-                    fw.close();
-                } catch (IOException ex) {
-           }                     
+                bw.close();
+                fw.close();
+            } catch (IOException ex) {
+            }
         }//fin IF
+
+
     }//GEN-LAST:event_VentasDelDiaActionPerformed
 
     private void TabsPrincipalesStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_TabsPrincipalesStateChanged
@@ -706,6 +810,229 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_TabsPrincipalesStateChanged
 
+    private void VerArboldeTODOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerArboldeTODOActionPerformed
+        ArbolListar.pack();
+        ArbolListar.setModal(true);
+        ArbolListar.setLocationRelativeTo(this);
+        ArbolListar.setVisible(true);
+    }//GEN-LAST:event_VerArboldeTODOActionPerformed
+
+    private void VerArbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerArbolActionPerformed
+        DefaultTreeModel m = (DefaultTreeModel) PrimerArbol.getModel();
+        DefaultMutableTreeNode raiz
+                = (DefaultMutableTreeNode) m.getRoot();
+
+        try {
+            File file = new File("./Cliente.txt");
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+
+            String linea = "";
+            String entrada = "";
+            ArrayList<String> datos = new ArrayList();
+            while ((linea = br.readLine()) != null) {
+
+                if (!linea.contains("];")) {
+                    entrada += linea;
+                } else {
+                    datos.add(entrada);
+                    entrada = "";
+                }
+            }
+            for (String dato : datos) {
+                String data[] = dato.split(",");
+                data[0] = data[0].substring(2, data[0].length());
+                data[1] = data[1].substring(2, data[1].length());
+                int edad = Integer.parseInt(data[1]);
+                data[2] = data[2].substring(2, data[2].length());
+                data[3] = data[3].substring(2, data[3].length());
+                int CantidadCarros = Integer.parseInt(data[3]);
+                data[4] = data[4].substring(2, data[4].length());
+                double Sueldo = Double.parseDouble(data[4]);
+                Cliente c = new Cliente(data[0], edad, data[2], CantidadCarros, Sueldo);
+                cliente = new DefaultMutableTreeNode(c);
+            }
+
+            fr.close();
+            br.close();
+
+            File file1 = new File("./Vendedor.txt");
+            FileReader fr1 = new FileReader(file1);
+            BufferedReader br1 = new BufferedReader(fr1);
+
+            String linea1 = "";
+            String entrada1 = "";
+            ArrayList<String> datos1 = new ArrayList();
+            while ((linea1 = br1.readLine()) != null) {
+
+                if (!linea1.contains("];")) {
+                    entrada1 += linea1;
+                } else {
+                    datos1.add(entrada1);
+                    entrada1 = "";
+                }
+            }
+            for (String dato : datos1) {
+                String data[] = dato.split(",");
+                data[0] = data[0].substring(2, data[0].length());
+                data[1] = data[1].substring(2, data[1].length());
+                int carros = Integer.parseInt(data[1]);
+                data[2] = data[2].substring(2, data[2].length());
+                double precio = Double.parseDouble(data[2]);
+
+                Vendedor v = new Vendedor(data[0], carros, precio);
+                vendedor = new DefaultMutableTreeNode(v);
+
+            }
+            fr1.close();
+            br1.close();
+
+            File file2 = new File("./Vehiculo.txt");
+            FileReader fr2 = new FileReader(file2);
+            BufferedReader br2 = new BufferedReader(fr2);
+
+            String linea2 = "";
+            String entrada2 = "";
+            ArrayList<String> datos2 = new ArrayList();
+            while ((linea = br2.readLine()) != null) {
+
+                if (!linea2.contains("];")) {
+                    entrada2 += linea2;
+                } else {
+                    datos2.add(entrada2);
+                    entrada2 = "";
+                }
+            }
+            for (String dato : datos2) {
+                String data[] = dato.split(",");
+                data[0] = data[0].substring(2, data[0].length());
+                data[1] = data[1].substring(2, data[1].length());
+                data[2] = data[2].substring(2, data[2].length());
+                data[3] = data[3].substring(2, data[3].length());
+                int año = Integer.parseInt(data[3]);
+                data[4] = data[4].substring(2, data[4].length());
+                double precio = Double.parseDouble(data[4]);
+                Vehiculo v = new Vehiculo(data[0], data[1], data[2], año, precio);
+                vehiculo = new DefaultMutableTreeNode(v);
+
+            }
+
+            fr2.close();
+            br2.close();
+
+            /*File file3 = new File("./Venta.txt");
+            FileReader fr3 = new FileReader(file3);
+            BufferedReader br3 = new BufferedReader(fr3);
+
+            String linea3 = "";
+            String entrada3 = "";
+            ArrayList<String> datos3 = new ArrayList();
+            while ((linea = br3.readLine()) != null) {
+
+                if (!linea3.contains("];")) {
+                    entrada3 += linea3;
+                } else {
+                    datos3.add(entrada3);
+                    entrada3 = "";
+                }
+            }
+            for (String dato : datos3) {
+                String data[] = dato.split(",");
+                data[0] = data[0].substring(2, data[0].length());   
+                Vendedor ven = (Vendedor)data[0];
+                data[1] = data[1].substring(2, data[1].length());                
+                data[2] = data[2].substring(2, data[2].length());
+                double costo = Double.parseDouble(data[2]);
+                data[3] = data[3].substring(2, data[3].length());                                
+                Venta v = new Venta(vendedor, cliente, costo, vehiculo);
+                DefaultMutableTreeNode venta = new DefaultMutableTreeNode(v);
+            }
+            
+            fr3.close();
+            br3.close();*/
+        } catch (Exception e) {
+        }
+        raiz.add(cliente);
+        raiz.add(vendedor);
+        raiz.add(vehiculo);
+
+    }//GEN-LAST:event_VerArbolActionPerformed
+
+    private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
+        JFileChooser archSelecc = new JFileChooser("./");
+            FileNameExtensionFilter filtro
+                = new FileNameExtensionFilter(
+                        "Archivos de Texto", "txt");
+            archSelecc.setFileFilter(filtro);
+            if (archSelecc.showDialog(this, "Abrir")==JFileChooser.APPROVE_OPTION) {
+                File file = archSelecc.getSelectedFile();
+                if (file.getName().endsWith(".txt")) {
+                    String txtmod = txt_Modificar.getText();
+                    String mensaje = GuardarArchivo(file, txtmod);
+                    if (mensaje!=null) {
+                        JOptionPane.showMessageDialog(this, mensaje);
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Archivo no compatible");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(this, "Guardar un documento de texto");
+                }
+            }
+    }//GEN-LAST:event_ModificarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        try {
+            JFileChooser archSelecc = new JFileChooser("./");
+            FileNameExtensionFilter filtro
+                = new FileNameExtensionFilter(
+                        "Archivos de Texto", "txt");
+            archSelecc.setFileFilter(filtro);
+            if (archSelecc.showDialog(this, "Abrir")==JFileChooser.APPROVE_OPTION) {
+                File file = archSelecc.getSelectedFile();
+                if(file.canRead()){
+                    if (file.getName().endsWith(".txt")) {
+                        String texto = AbrirArchivo(file);
+                        txt_Modificar.setText(texto);
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Eso no es un txt papi");
+                    }
+                }
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error inesperado");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private String AbrirArchivo(File file){
+        String texto="";
+        try {
+            FileInputStream input = new FileInputStream(file);
+            int ascii;
+            while ((ascii=input.read())!=-1) {
+                char c = (char) ascii;
+                texto+=c;
+            }
+        } catch (Exception e) {
+        }
+        
+        return texto;
+    }
+    
+    private String GuardarArchivo(File file, String texto){
+        String mensaje="";
+        try {
+            FileOutputStream output = new FileOutputStream(file);
+            byte[] btes = texto.getBytes();
+            output.write(btes);
+            mensaje = "Archivo guardado";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mensaje; 
+    }
+    
     private void agregarComboVehiculo() {
         DefaultComboBoxModel modelo = (DefaultComboBoxModel) cb_Vehiculos.getModel();
         vehiculoscb = new ArrayList();
@@ -875,6 +1202,10 @@ public class Main extends javax.swing.JFrame {
     ArrayList<String> vehiculoscb = new ArrayList();
     ArrayList<String> vendedorcb = new ArrayList();
     ArrayList<String> clientescb = new ArrayList();
+    DefaultMutableTreeNode vehiculo;
+    DefaultMutableTreeNode cliente;
+    DefaultMutableTreeNode vendedor;
+    DefaultMutableTreeNode venta;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AgregarCliente;
     private javax.swing.JButton AgregarVehiculo;
@@ -885,10 +1216,14 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel CrearVehiculo;
     private javax.swing.JPanel CrearVendedor;
     private javax.swing.JPanel CrearVentas;
+    private javax.swing.JButton Modificar;
     private javax.swing.JTextField PrecioVenta;
+    private javax.swing.JTree PrimerArbol;
     private javax.swing.JTabbedPane TabsPrincipales;
     private javax.swing.JButton VentasDelDia;
     private javax.swing.JDialog VentasDia;
+    private javax.swing.JButton VerArbol;
+    private javax.swing.JButton VerArboldeTODO;
     private javax.swing.JPanel bg;
     private javax.swing.JComboBox<String> cb_Clientes;
     private javax.swing.JComboBox<String> cb_Vehiculos;
@@ -911,10 +1246,13 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTree jTree1;
+    private javax.swing.JTree jTree2;
     private javax.swing.JSpinner tf_Año;
     private javax.swing.JSpinner tf_CantidadCarros;
     private javax.swing.JTextField tf_CantidadDinero;
@@ -928,5 +1266,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField tf_NombreVendedor;
     private javax.swing.JTextField tf_Profesion;
     private javax.swing.JTextField tf_SueldoDisponible;
+    private javax.swing.JTextArea txt_Modificar;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,3 +4,69 @@
 	2000.0, 
 	Ford, Corolla, 
 ];
+[
+	Fernando, 
+	Daniel, 
+	900000.0, 
+	Ford, Corolla, 
+];
+[
+	Fernando, 
+	Daniel, 
+	50.0, 
+	Ford, Corolla, 
+];
+[
+	Fernando, 
+	Daniel, 
+	50.0, 
+	Ford, Corolla, 
+];
+[
+	Rodrigo, 
+	Daniel, 
+	50000.0, 
+	Kia, Picanto, 
+];
+[
+	Rodrigo, 
+	Daniel, 
+	60000.0, 
+	Honda, Civic, 
+];
+[
+	Fernando, 
+	Nuila, 
+	60000.0, 
+	Ford, Corolla, 
+];
+[
+	Fernando, 
+	Nuila, 
+	60000.0, 
+	Ford, Corolla, 
+];
+[
+	Fernando, 
+	Daniel, 
+	4654645.0, 
+	Ford, Corolla, 
+];
+[
+	Fernando, 
+	Nuila, 
+	60000.0, 
+	Ford, Corolla, 
+];
+[
+	Fernando, 
+	Daniel, 
+	4654645.0, 
+	Ford, Corolla, 
+];
+[
+	Rodrigo, 
+	Mario, 
+	4654645.0, 
+	Honda, Civic, 
+];

@@ -1,0 +1,6 @@
+[
+	1	Fernando, 
+	Daniel, 
+	900000.0, 
+	Ford, Corolla, 
+];
