@@ -608,7 +608,41 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_AgregarClienteActionPerformed
 
     private void AgregarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarVentaActionPerformed
+        try {
+            Vendedor ven = (Vendedor) cb_Vendedores.getSelectedItem();
+            Cliente cli = (Cliente) cb_Clientes.getSelectedItem();
+            double transaccion = Double.parseDouble(tf_CostoTransaccion.getText());
+            Vehiculo veh = (Vehiculo) cb_Vehiculos.getSelectedItem();
 
+            ventas.add(new Venta(ven, cli, transaccion, veh));
+
+            FileWriter fw = null;
+            BufferedWriter bw = null;
+            try {
+                File archivo = new File("./Venta.txt");
+                fw = new FileWriter(archivo, true);
+                bw = new BufferedWriter(fw);
+                for (Venta t : ventas) {
+                    bw.write("[\n"
+                            + "\t" + t.getVendedor() + ", \n"
+                            + "\t" + t.getCliente() + ", \n"
+                            + "\t" + t.getCosto_Transaccion() + ", \n"
+                            + "\t" + t.getCarro() + ", \n"
+                            + "];\n");
+                }
+                bw.flush();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            bw.close();
+            fw.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error y no se agregó nada");
+        }
+        JOptionPane.showMessageDialog(this, "Venta agregada exitosamente");
+        cb_Vendedores.setSelectedIndex(0);
+        cb_Vehiculos.setSelectedIndex(0);
+        cb_Clientes.setSelectedIndex(0);
     }//GEN-LAST:event_AgregarVentaActionPerformed
 
     private void VentasDelDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VentasDelDiaActionPerformed
@@ -623,7 +657,7 @@ public class Main extends javax.swing.JFrame {
             agregarComboVehiculo();
             agregarComboVendedor();
             agregarComboCliente();
-            
+
         }
     }//GEN-LAST:event_TabsPrincipalesStateChanged
 
@@ -635,18 +669,17 @@ public class Main extends javax.swing.JFrame {
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
 
-            String linea="";
-            String entrada="";
+            String linea = "";
+            String entrada = "";
             ArrayList<String> datos = new ArrayList();
             while ((linea = br.readLine()) != null) {
 
-
-            if(!linea.contains("];")){
-                entrada += linea;
-            }else{
-                datos.add(entrada);
-                entrada = "";
-            }
+                if (!linea.contains("];")) {
+                    entrada += linea;
+                } else {
+                    datos.add(entrada);
+                    entrada = "";
+                }
             }
             for (String dato : datos) {
                 String data[] = dato.split(",");
@@ -659,9 +692,9 @@ public class Main extends javax.swing.JFrame {
                 double precio = Double.parseDouble(data[4]);
                 Vehiculo v = new Vehiculo(data[0], data[1], data[2], año, precio);
                 modelo.addElement(v);
-                
+
             }
-            
+
             modelo.addAll(vehiculoscb);
             cb_Vehiculos.setModel(modelo);
             fr.close();
@@ -670,7 +703,7 @@ public class Main extends javax.swing.JFrame {
         }
 
     }
-    
+
     private void agregarComboVendedor() {
         DefaultComboBoxModel modelo = (DefaultComboBoxModel) cb_Vendedores.getModel();
         vendedorcb = new ArrayList();
@@ -679,18 +712,17 @@ public class Main extends javax.swing.JFrame {
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
 
-            String linea="";
-            String entrada="";
+            String linea = "";
+            String entrada = "";
             ArrayList<String> datos = new ArrayList();
             while ((linea = br.readLine()) != null) {
 
-
-            if(!linea.contains("];")){
-                entrada += linea;
-            }else{
-                datos.add(entrada);
-                entrada = "";
-            }
+                if (!linea.contains("];")) {
+                    entrada += linea;
+                } else {
+                    datos.add(entrada);
+                    entrada = "";
+                }
             }
             for (String dato : datos) {
                 String data[] = dato.split(",");
@@ -698,13 +730,13 @@ public class Main extends javax.swing.JFrame {
                 data[1] = data[1].substring(2, data[1].length());
                 int carros = Integer.parseInt(data[1]);
                 data[2] = data[2].substring(2, data[2].length());
-                double precio = Double.parseDouble(data[2]);                
-                
+                double precio = Double.parseDouble(data[2]);
+
                 Vendedor v = new Vendedor(data[0], carros, precio);
                 modelo.addElement(v);
-                
+
             }
-            
+
             modelo.addAll(vendedorcb);
             cb_Vendedores.setModel(modelo);
             fr.close();
@@ -713,7 +745,7 @@ public class Main extends javax.swing.JFrame {
         }
 
     }
-    
+
     private void agregarComboCliente() {
         DefaultComboBoxModel modelo = (DefaultComboBoxModel) cb_Clientes.getModel();
         clientescb = new ArrayList();
@@ -722,18 +754,17 @@ public class Main extends javax.swing.JFrame {
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
 
-            String linea="";
-            String entrada="";
+            String linea = "";
+            String entrada = "";
             ArrayList<String> datos = new ArrayList();
             while ((linea = br.readLine()) != null) {
 
-
-            if(!linea.contains("];")){
-                entrada += linea;
-            }else{
-                datos.add(entrada);
-                entrada = "";
-            }
+                if (!linea.contains("];")) {
+                    entrada += linea;
+                } else {
+                    datos.add(entrada);
+                    entrada = "";
+                }
             }
             for (String dato : datos) {
                 String data[] = dato.split(",");
@@ -747,9 +778,9 @@ public class Main extends javax.swing.JFrame {
                 double Sueldo = Double.parseDouble(data[4]);
                 Cliente c = new Cliente(data[0], edad, data[2], CantidadCarros, Sueldo);
                 modelo.addElement(c);
-                
+
             }
-            
+
             modelo.addAll(clientescb);
             cb_Clientes.setModel(modelo);
             fr.close();
@@ -796,9 +827,10 @@ public class Main extends javax.swing.JFrame {
     ArrayList<Vehiculo> vehiculos = new ArrayList();
     ArrayList<Vendedor> vendededores = new ArrayList();
     ArrayList<Cliente> clientes = new ArrayList();
+    ArrayList<Venta> ventas = new ArrayList();
     ArrayList<String> vehiculoscb = new ArrayList();
-    ArrayList<String> vendedorcb = new ArrayList(); 
-    ArrayList<String> clientescb = new ArrayList(); 
+    ArrayList<String> vendedorcb = new ArrayList();
+    ArrayList<String> clientescb = new ArrayList();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AgregarCliente;
     private javax.swing.JButton AgregarVehiculo;
