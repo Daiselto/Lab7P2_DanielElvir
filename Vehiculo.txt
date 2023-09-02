@@ -1,14 +1,14 @@
 [
 	Ford, 
-	Rojo, 
-	Prado, 
-	2004, 
+	Roko, 
+	Corolla, 
+	2001, 
 	500000.0, 
 ];
 [
 	Toyota, 
-	Azul, 
-	Corolla, 
-	2000, 
-	6.0E7, 
+	Amarillo, 
+	Prado, 
+	2011, 
+	500000.0, 
 ];

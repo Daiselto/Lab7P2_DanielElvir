@@ -13,6 +13,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
 
@@ -38,6 +39,11 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        VentasDia = new javax.swing.JDialog();
+        bg = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTree1 = new javax.swing.JTree();
+        ArbolListar = new javax.swing.JDialog();
         TabsPrincipales = new javax.swing.JTabbedPane();
         CrearVehiculo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -86,9 +92,56 @@ public class Main extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
 
+        jScrollPane2.setViewportView(jTree1);
+
+        javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
+        bg.setLayout(bgLayout);
+        bgLayout.setHorizontalGroup(
+            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bgLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(468, Short.MAX_VALUE))
+        );
+        bgLayout.setVerticalGroup(
+            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bgLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(76, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout VentasDiaLayout = new javax.swing.GroupLayout(VentasDia.getContentPane());
+        VentasDia.getContentPane().setLayout(VentasDiaLayout);
+        VentasDiaLayout.setHorizontalGroup(
+            VentasDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        VentasDiaLayout.setVerticalGroup(
+            VentasDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout ArbolListarLayout = new javax.swing.GroupLayout(ArbolListar.getContentPane());
+        ArbolListar.getContentPane().setLayout(ArbolListarLayout);
+        ArbolListarLayout.setHorizontalGroup(
+            ArbolListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 696, Short.MAX_VALUE)
+        );
+        ArbolListarLayout.setVerticalGroup(
+            ArbolListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 537, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Te amo Nuila <3");
         setAlwaysOnTop(true);
+
+        TabsPrincipales.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                TabsPrincipalesStateChanged(evt);
+            }
+        });
 
         CrearVehiculo.setBackground(new java.awt.Color(0, 102, 102));
 
@@ -326,8 +379,6 @@ public class Main extends javax.swing.JFrame {
 
         jLabel17.setText("Vehiculo que se vendió");
 
-        cb_Vendedores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
-
         AgregarVenta.setBackground(new java.awt.Color(102, 0, 102));
         AgregarVenta.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         AgregarVenta.setForeground(new java.awt.Color(0, 0, 0));
@@ -353,6 +404,7 @@ public class Main extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("MODIFICAR");
 
+        jTextArea1.setBackground(new java.awt.Color(153, 153, 153));
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
@@ -449,7 +501,7 @@ public class Main extends javax.swing.JFrame {
             BufferedWriter bw = null;
             try {
                 File archivo = new File("./Vehiculo.txt");
-                fw = new FileWriter(archivo, false);
+                fw = new FileWriter(archivo, true);
                 bw = new BufferedWriter(fw);
                 for (Vehiculo t : vehiculos) {
                     bw.write("[\n"
@@ -489,7 +541,7 @@ public class Main extends javax.swing.JFrame {
             BufferedWriter bw = null;
             try {
                 File archivo = new File("./Vendedor.txt");
-                fw = new FileWriter(archivo, false);
+                fw = new FileWriter(archivo, true);
                 bw = new BufferedWriter(fw);
                 for (Vendedor t : vendededores) {
                     bw.write("[\n"
@@ -527,7 +579,7 @@ public class Main extends javax.swing.JFrame {
             BufferedWriter bw = null;
             try {
                 File archivo = new File("./Cliente.txt");
-                fw = new FileWriter(archivo, false);
+                fw = new FileWriter(archivo, true);
                 bw = new BufferedWriter(fw);
                 for (Cliente t : clientes) {
                     bw.write("[\n"
@@ -563,32 +615,143 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_VentasDelDiaActionPerformed
 
-    private void agregarComboVehiculo(File file) {
+    private void TabsPrincipalesStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_TabsPrincipalesStateChanged
+        if (TabsPrincipales.getSelectedIndex() == 3) {
+            cb_Clientes.removeAllItems();
+            cb_Vehiculos.removeAllItems();
+            cb_Vendedores.removeAllItems();
+            agregarComboVehiculo();
+            agregarComboVendedor();
+            agregarComboCliente();
+            
+        }
+    }//GEN-LAST:event_TabsPrincipalesStateChanged
 
-//        FileReader fr = null;
-//        BufferedReader br = null;
+    private void agregarComboVehiculo() {
+        DefaultComboBoxModel modelo = (DefaultComboBoxModel) cb_Vehiculos.getModel();
         vehiculoscb = new ArrayList();
         try {
-
+            File file = new File("./Vehiculo.txt");
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
 
-            String linea;
-
+            String linea="";
+            String entrada="";
+            ArrayList<String> datos = new ArrayList();
             while ((linea = br.readLine()) != null) {
-                String[] tokens = linea.split("-");
-                for (String token : tokens) {
-                    String[] tokens1 = token.split(",");
-                    for (String string : tokens1) {
-                        String sub1 = string.substring(2, string.length());
-                        String sub2 = string.substring(5, string.length());
-                        String sub3 = string.substring(7, string.length());
-                        String sub4 = string.substring(9, string.length());
-//2 5 7 9               
-                        vehiculoscb.add(string);
-                    }
-                }
+
+
+            if(!linea.contains("];")){
+                entrada += linea;
+            }else{
+                datos.add(entrada);
+                entrada = "";
             }
+            }
+            for (String dato : datos) {
+                String data[] = dato.split(",");
+                data[0] = data[0].substring(2, data[0].length());
+                data[1] = data[1].substring(2, data[1].length());
+                data[2] = data[2].substring(2, data[2].length());
+                data[3] = data[3].substring(2, data[3].length());
+                int año = Integer.parseInt(data[3]);
+                data[4] = data[4].substring(2, data[4].length());
+                double precio = Double.parseDouble(data[4]);
+                Vehiculo v = new Vehiculo(data[0], data[1], data[2], año, precio);
+                modelo.addElement(v);
+                
+            }
+            
+            modelo.addAll(vehiculoscb);
+            cb_Vehiculos.setModel(modelo);
+            fr.close();
+            br.close();
+        } catch (Exception e) {
+        }
+
+    }
+    
+    private void agregarComboVendedor() {
+        DefaultComboBoxModel modelo = (DefaultComboBoxModel) cb_Vendedores.getModel();
+        vendedorcb = new ArrayList();
+        try {
+            File file = new File("./Vendedor.txt");
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+
+            String linea="";
+            String entrada="";
+            ArrayList<String> datos = new ArrayList();
+            while ((linea = br.readLine()) != null) {
+
+
+            if(!linea.contains("];")){
+                entrada += linea;
+            }else{
+                datos.add(entrada);
+                entrada = "";
+            }
+            }
+            for (String dato : datos) {
+                String data[] = dato.split(",");
+                data[0] = data[0].substring(2, data[0].length());
+                data[1] = data[1].substring(2, data[1].length());
+                int carros = Integer.parseInt(data[1]);
+                data[2] = data[2].substring(2, data[2].length());
+                double precio = Double.parseDouble(data[2]);                
+                
+                Vendedor v = new Vendedor(data[0], carros, precio);
+                modelo.addElement(v);
+                
+            }
+            
+            modelo.addAll(vendedorcb);
+            cb_Vendedores.setModel(modelo);
+            fr.close();
+            br.close();
+        } catch (Exception e) {
+        }
+
+    }
+    
+    private void agregarComboCliente() {
+        DefaultComboBoxModel modelo = (DefaultComboBoxModel) cb_Clientes.getModel();
+        clientescb = new ArrayList();
+        try {
+            File file = new File("./Cliente.txt");
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+
+            String linea="";
+            String entrada="";
+            ArrayList<String> datos = new ArrayList();
+            while ((linea = br.readLine()) != null) {
+
+
+            if(!linea.contains("];")){
+                entrada += linea;
+            }else{
+                datos.add(entrada);
+                entrada = "";
+            }
+            }
+            for (String dato : datos) {
+                String data[] = dato.split(",");
+                data[0] = data[0].substring(2, data[0].length());
+                data[1] = data[1].substring(2, data[1].length());
+                int edad = Integer.parseInt(data[1]);
+                data[2] = data[2].substring(2, data[2].length());
+                data[3] = data[3].substring(2, data[3].length());
+                int CantidadCarros = Integer.parseInt(data[3]);
+                data[4] = data[4].substring(2, data[4].length());
+                double Sueldo = Double.parseDouble(data[4]);
+                Cliente c = new Cliente(data[0], edad, data[2], CantidadCarros, Sueldo);
+                modelo.addElement(c);
+                
+            }
+            
+            modelo.addAll(clientescb);
+            cb_Clientes.setModel(modelo);
             fr.close();
             br.close();
         } catch (Exception e) {
@@ -634,13 +797,14 @@ public class Main extends javax.swing.JFrame {
     ArrayList<Vendedor> vendededores = new ArrayList();
     ArrayList<Cliente> clientes = new ArrayList();
     ArrayList<String> vehiculoscb = new ArrayList();
-    //ArrayList<String> 
-    //ArrayList<String> 
+    ArrayList<String> vendedorcb = new ArrayList(); 
+    ArrayList<String> clientescb = new ArrayList(); 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AgregarCliente;
     private javax.swing.JButton AgregarVehiculo;
     private javax.swing.JButton AgregarVendedor;
     private javax.swing.JButton AgregarVenta;
+    private javax.swing.JDialog ArbolListar;
     private javax.swing.JPanel CrearCliente;
     private javax.swing.JPanel CrearVehiculo;
     private javax.swing.JPanel CrearVendedor;
@@ -648,6 +812,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField PrecioVenta;
     private javax.swing.JTabbedPane TabsPrincipales;
     private javax.swing.JButton VentasDelDia;
+    private javax.swing.JDialog VentasDia;
+    private javax.swing.JPanel bg;
     private javax.swing.JComboBox<String> cb_Clientes;
     private javax.swing.JComboBox<String> cb_Vehiculos;
     private javax.swing.JComboBox<String> cb_Vendedores;
@@ -670,7 +836,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTree jTree1;
     private javax.swing.JSpinner tf_Año;
     private javax.swing.JSpinner tf_CantidadCarros;
     private javax.swing.JTextField tf_CantidadDinero;
