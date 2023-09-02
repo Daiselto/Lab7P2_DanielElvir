@@ -104,7 +104,7 @@ public class Main extends javax.swing.JFrame {
         txt_Modificar = new javax.swing.JTextArea();
         VerArboldeTODO = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTree2 = new javax.swing.JTree();
+        ArbolDia = new javax.swing.JTree();
         jButton1 = new javax.swing.JButton();
 
         jScrollPane2.setViewportView(jTree1);
@@ -478,9 +478,9 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
-        jTree2.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        jScrollPane4.setViewportView(jTree2);
+        treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Ventas del Dia");
+        ArbolDia.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane4.setViewportView(ArbolDia);
 
         jButton1.setBackground(new java.awt.Color(102, 0, 102));
         jButton1.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -776,10 +776,21 @@ public class Main extends javax.swing.JFrame {
                     cont++;
                 }
                 bw.flush();
-                DefaultTreeModel m = (DefaultTreeModel) PrimerArbol.getModel();
+                DefaultTreeModel m = (DefaultTreeModel) ArbolDia.getModel();
                 DefaultMutableTreeNode raiz
                         = (DefaultMutableTreeNode) m.getRoot();
+                int cont1=1;
                 
+                for (Venta t : ventas) {
+                    DefaultMutableTreeNode conta = new DefaultMutableTreeNode(cont1);
+                    DefaultMutableTreeNode nomVend = new DefaultMutableTreeNode(t.getVendedor());
+                    DefaultMutableTreeNode nomComp = new DefaultMutableTreeNode(t.getCliente());
+                    conta.add(nomComp);
+                    conta.add(nomVend);
+                    raiz.add(conta);
+                    cont1++;
+                }
+                m.reload();
                 ventas.removeAll(ventas);
 
                 JOptionPane.showMessageDialog(this,
@@ -1211,6 +1222,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton AgregarVehiculo;
     private javax.swing.JButton AgregarVendedor;
     private javax.swing.JButton AgregarVenta;
+    private javax.swing.JTree ArbolDia;
     private javax.swing.JDialog ArbolListar;
     private javax.swing.JPanel CrearCliente;
     private javax.swing.JPanel CrearVehiculo;
@@ -1252,7 +1264,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTree jTree1;
-    private javax.swing.JTree jTree2;
     private javax.swing.JSpinner tf_Año;
     private javax.swing.JSpinner tf_CantidadCarros;
     private javax.swing.JTextField tf_CantidadDinero;

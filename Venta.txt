@@ -70,3 +70,39 @@
 	4654645.0, 
 	Honda, Civic, 
 ];
+[
+	Rodrigo, 
+	Nuila, 
+	500000.0, 
+	Kia, Accord, 
+];
+[
+	Rodrigo, 
+	Nuila, 
+	500000.0, 
+	Kia, Accord, 
+];
+[
+	Rodrigo, 
+	Mario, 
+	60000.0, 
+	Ford, Corolla, 
+];
+[
+	Fernando, 
+	Daniel, 
+	50000.0, 
+	Ford, Corolla, 
+];
+[
+	Fernando, 
+	Daniel, 
+	50000.0, 
+	Ford, Corolla, 
+];
+[
+	Rodrigo, 
+	Mario, 
+	900000.0, 
+	Honda, Civic, 
+];

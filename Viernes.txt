@@ -1,0 +1,14 @@
+[
+	1, 
+	Rodrigo, 
+	Nuila, 
+	500000.0, 
+	Kia, Accord, 
+];
+[
+	2, 
+	Rodrigo, 
+	Mario, 
+	60000.0, 
+	Ford, Corolla, 
+];

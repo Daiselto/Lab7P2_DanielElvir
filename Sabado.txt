@@ -1,0 +1,14 @@
+[
+	1, 
+	Fernando, 
+	Daniel, 
+	50000.0, 
+	Ford, Corolla, 
+];
+[
+	2, 
+	Rodrigo, 
+	Mario, 
+	900000.0, 
+	Honda, Civic, 
+];
