@@ -10,12 +10,15 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JColorChooser;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -646,7 +649,49 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_AgregarVentaActionPerformed
 
     private void VentasDelDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VentasDelDiaActionPerformed
-        // TODO add your handling code here:
+        JFileChooser jfc = new JFileChooser();
+        FileNameExtensionFilter filtro = 
+                    new FileNameExtensionFilter(
+                            "Archivos de Texto", "txt");
+         jfc.setFileFilter(filtro); 
+        int seleccion = jfc.showSaveDialog(this);        
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+             try {
+                 
+                  File fichero=null;
+                if (jfc.getFileFilter().getDescription().equals(
+                        "Archivos de Texto")) {
+                    fichero = 
+                        new File(jfc.getSelectedFile().getPath()+".txt");
+                }else{
+                    fichero = jfc.getSelectedFile();
+                }                             
+                fw = new FileWriter(fichero);
+                bw = new BufferedWriter(fw);
+                for (Venta t : ventas) {
+                    bw.write("[\n"
+                            + "\t" + t.getVendedor() + ", \n"
+                            + "\t" + t.getCliente() + ", \n"
+                            + "\t" + t.getCosto_Transaccion() + ", \n"
+                            + "\t" + t.getCarro() + ", \n"
+                            + "];\n");
+                }                
+                bw.flush();
+                ventas.removeAll(ventas);
+                JOptionPane.showMessageDialog(this, 
+                        "Ventas hechas");  
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                    bw.close();
+                    fw.close();
+                } catch (IOException ex) {
+           }                     
+        }//fin IF
     }//GEN-LAST:event_VentasDelDiaActionPerformed
 
     private void TabsPrincipalesStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_TabsPrincipalesStateChanged
@@ -778,7 +823,6 @@ public class Main extends javax.swing.JFrame {
                 double Sueldo = Double.parseDouble(data[4]);
                 Cliente c = new Cliente(data[0], edad, data[2], CantidadCarros, Sueldo);
                 modelo.addElement(c);
-
             }
 
             modelo.addAll(clientescb);
